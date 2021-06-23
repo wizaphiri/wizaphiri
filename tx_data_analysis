@@ -1,0 +1,58 @@
+import psycopg2
+import csv
+import pandas
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+import os
+
+def data_extraction():
+    pg_conn = psycopg2.connect(user="user1", password="password1", host="localhost", port="5432", database="temp1")
+    executecursor = pg_conn.cursor()
+    query = "select * from tab1"
+    results = pandas.read_sql_query(query,pg_conn)
+    results.to_csv("tx.csv",index=False)
+    pg_conn.close()
+
+def send_mail():
+    fromaddr = "sender@gmail.com"
+    toaddr = "receiver@gmail.com"
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "Report Subject string" #% (today)
+    body = "Dear all, \r \rPlease find attached report for your use. \r \rThanks and regards. \rSender_id \r"
+    msg.attach(MIMEText(body, 'plain'))
+    #filename = "/home/wiza/tx/tx.csv" 
+    #Current_Date = datetime.datetime.today().strftime ('%d-%b-%Y')
+    filename = 'tx.csv'
+    attachment = open(filename, "rb")
+
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload((attachment).read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+    msg.attach(part)
+
+    server = smtplib.SMTP('outlook.office365.com', 587)
+    server.starttls()
+    server.login(fromaddr, "email_password")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr.split(','), text)
+    server.quit()
+    print("email sent to: " + toaddr)
+
+def clean_up():
+    if os.path.exists("tx.csv"):
+        os.remove("tx.csv")
+    else:
+        #pass
+        print("The file does not exist")
+
+data_extraction()
+send_mail()
+clean_up()
+print('Done!!!')
+        
