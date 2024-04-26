@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @wizaphiri
-- 👀 I’m interested in data management apps
+- 👀 I’m interested in data management projects - pandas, pyspark, scikit-learn, Keras, Tensotflow
 - 🌱 I’m currently learning alot
 - 💞️ I’m looking to collaborate on data science projects
 - 📫 wiza.phiri19@gmail.com
