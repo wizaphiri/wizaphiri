@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @wizaphiri
-- 👀 I’m interested in data engineering / data science projects - pandas, airflow, pyspark, pytorch, scipy scikit-learn, Keras, Tensotflow, streamlit
+- 👀 I’m interested in data engineering/science projects - pandas, airflow, pyspark, pytorch, scipy scikit-learn, Keras, Tensotflow, streamlit
 - 🌱 Vibe-coding :) 
 - 💞️ I’m looking to collaborate on data science projects
 - 📫 wiza.phiri19@gmail.com
